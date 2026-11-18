@@ -4,6 +4,9 @@
 > Ele instala, roda `python verificar.py` (tem de dar PACOTE OK), configura sem inventar dado e liga, em dry-run
 > primeiro: biblioteca de peças, calculadora, base de leis, **painel de cálculos com o link dos parceiros**, OneDrive,
 > Notion, Asaas, controladoria e rotinas. Termina com a tabela de status.
+>
+> **"Gere o SaaS" / `/gerar-saas`** → `.claude/commands/gerar-saas.md`: sistema web do escritório a partir da base
+> white-label (`sistema-base-virgem`), com este pacote dentro e o portal de cálculos para advogados parceiros.
 
 Pacote de implantação Casal da IA, no mesmo formato dos pacotes da Laís Torres & Alex Brunno e da SPDAG:
 POPs, checklists, mensagens, modelos, agentes Claude e automações. Este repositório é **só o previdenciário**

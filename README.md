@@ -4,6 +4,7 @@ Pacote de implantação Casal da IA para o escritório da Dra. Faya Barreiros (S
 
 - **Comece por aqui:** abra a pasta no Claude Code e diga **"execute o repo"** (ou `/executar-repo`). O roteiro está
   em `INSTALAR.md`.
+- **Sistema web (SaaS) com portal de cálculos para parceiros:** no Claude Code, `/gerar-saas`.
 - **Contexto completo:** `CLAUDE.md`. **Plano e pendências:** `PROJETO_IMPLANTACAO.md`.
 - **Conferir que está tudo de pé:** `python verificar.py` → `PACOTE OK`.
 - **Ver o painel de cálculos agora, com dados fictícios:** `python automacoes/painel/servidor.py --exemplo` e abrir

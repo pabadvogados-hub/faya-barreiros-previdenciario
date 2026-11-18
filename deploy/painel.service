@@ -1,0 +1,17 @@
+# systemd: painel das demandas externas na VPS (atrás do Caddy, ver deploy/Caddyfile.exemplo)
+# sudo cp deploy/painel.service /etc/systemd/system/faya-painel.service
+# sudo systemctl daemon-reload && sudo systemctl enable --now faya-painel
+[Unit]
+Description=Painel de calculos - Faya Barreiros
+After=network-online.target
+
+[Service]
+WorkingDirectory=/opt/escritorio
+ExecStart=/opt/escritorio/venv/bin/python automacoes/painel/servidor.py --host 127.0.0.1 --porta 8765
+Restart=on-failure
+RestartSec=5
+User=escritorio
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

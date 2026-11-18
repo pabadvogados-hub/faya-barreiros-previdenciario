@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pedido de cálculo</title>
+<style>
+  :root { --bordo: #4E151C; --fundo: #f6f3f1; --cartao: #fff; --texto: #20201f; --suave: #6b6461; --linha: #e6dfdb; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fundo: #171314; --cartao: #221c1d; --texto: #f1ece9; --suave: #b3aaa6; --linha: #3a3132; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font: 15px/1.5 "Segoe UI", system-ui, sans-serif; }
+  header { background: #4E151C; color: #fff; padding: 28px 16px; text-align: center; }
+  header h1 { margin: 0; font-size: 20px; font-weight: 600; }
+  header p { margin: 6px 0 0; opacity: .8; font-size: 13px; }
+  main { max-width: 680px; margin: -14px auto 40px; padding: 0 16px; }
+  form, .ok { background: var(--cartao); border: 1px solid var(--linha); border-radius: 10px; padding: 22px; display: grid; gap: 14px; }
+  h2 { margin: 6px 0 0; font-size: 14px; color: var(--suave); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  label { display: grid; gap: 5px; font-size: 13px; }
+  input, select, textarea { font: inherit; color: var(--texto); background: var(--fundo); border: 1px solid var(--linha);
+                            border-radius: 6px; padding: 9px 10px; width: 100%; }
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .duas { grid-template-columns: 1fr; } }
+  button { background: #4E151C; color: #fff; border: 0; border-radius: 6px; padding: 12px; font: inherit; font-weight: 600; cursor: pointer; }
+  button:disabled { opacity: .6; cursor: wait; }
+  .nota { font-size: 12px; color: var(--suave); }
+  .erro { color: #c0392b; font-size: 13px; }
+  .escondido { position: absolute; left: -9999px; }
+  .ok { text-align: center; }
+  .ok b { font-size: 22px; display: block; margin: 6px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Faya Barreiros · Cálculos previdenciários</h1>
+  <p>Pedido de cálculo para advogados parceiros</p>
+</header>
+<main>
+  <form id="f" enctype="multipart/form-data">
+    <h2>Quem pede</h2>
+    <div class="duas">
+      <label>Nome do advogado ou escritório *<input name="parceiro_nome" required maxlength="200"></label>
+      <label>OAB<input name="parceiro_oab" maxlength="60"></label>
+    </div>
+    <div class="duas">
+      <label>E-mail *<input type="email" name="parceiro_email" required maxlength="200"></label>
+      <label>WhatsApp<input name="parceiro_whatsapp" maxlength="40"></label>
+    </div>
+    <label>CPF ou CNPJ para emissão da cobrança<input name="parceiro_doc" maxlength="20"></label>
+
+    <h2>O cálculo</h2>
+    <div class="duas">
+      <label>Tipo de cálculo *<select name="tipo" id="tipo" required></select></label>
+      <label>Seu prazo no processo *<input type="date" name="prazo_parceiro" required></label>
+    </div>
+    <label>Número do processo<input name="processo" maxlength="40" placeholder="0000000-00.0000.0.00.0000"></label>
+    <label>Descrição curta do caso *<input name="caso" required maxlength="160" placeholder="Ex.: liquidação de aposentadoria especial"></label>
+    <label>Observações<textarea name="observacoes" rows="3" maxlength="500" placeholder="Critérios do título, ponto controvertido, cálculo da parte contrária..."></textarea></label>
+    <label>Documentos (sentença/acórdão, CNIS, carta de concessão, cálculo do INSS) — PDF, imagem, Word ou Excel, até 40 MB no total
+      <input type="file" name="arquivos" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.csv,.txt,.zip"></label>
+    <input class="escondido" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="nota">Os dados e documentos enviados são usados só para elaborar o cálculo, com sigilo profissional e
+      conforme a LGPD. O prazo é confirmado pelo escritório no mesmo dia útil.</p>
+    <div class="erro" id="erro"></div>
+    <button id="enviar">Enviar pedido</button>
+  </form>
+  <div class="ok" id="ok" hidden>
+    <span class="nota">Pedido recebido</span>
+    <b id="protocolo"></b>
+    <p>Guarde este protocolo. O escritório confirma o prazo e o valor pelo e-mail ou WhatsApp informados.</p>
+    <button onclick="location.reload()">Enviar outro pedido</button>
+  </div>
+</main>
+<script>
+const t = new URLSearchParams(location.search).get('t') || '';
+fetch('/api/tipos?t=' + encodeURIComponent(t)).then(r => r.json()).then(j => {
+  document.getElementById('tipo').innerHTML = '<option value="">Escolha</option>' +
+    (j.tipos || []).map(x => `<option>${x.replace(/</g, '&lt;')}</option>`).join('');
+});
+document.getElementById('f').addEventListener('submit', async ev => {
+  ev.preventDefault();
+  const bt = document.getElementById('enviar'), erro = document.getElementById('erro');
+  erro.textContent = ''; bt.disabled = true; bt.textContent = 'Enviando...';
+  try {
+    const r = await fetch('/api/pedido?t=' + encodeURIComponent(t), {method: 'POST', body: new FormData(ev.target)});
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.erro || 'falha no envio');
+    document.getElementById('protocolo').textContent = j.protocolo;
+    ev.target.hidden = true; document.getElementById('ok').hidden = false;
+  } catch (e) {
+    erro.textContent = 'Não foi possível enviar: ' + e.message;
+  } finally { bt.disabled = false; bt.textContent = 'Enviar pedido'; }
+});
+</script>
+</body>
+</html>

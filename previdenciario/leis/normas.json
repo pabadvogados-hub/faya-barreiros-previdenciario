@@ -1,0 +1,179 @@
+[
+ {
+  "sigla": "L8213",
+  "nome": "Lei 8.213/1991 (Planos de Beneficios da Previdencia Social)",
+  "uso": "qualidade de segurado e periodo de graca (15), carencia (24-27), aposentadorias, auxilios, pensao (74), salario-maternidade (71), revisao/decadencia (103)",
+  "apelidos": [
+   "8213",
+   "PBPS"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "L8212",
+  "nome": "Lei 8.212/1991 (Custeio da Seguridade Social)",
+  "uso": "segurados obrigatorios (12), contribuicoes, salario-de-contribuicao (28), indenizacao de periodo (45-A)",
+  "apelidos": [
+   "8212",
+   "PCSS"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/l8212cons.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "L8742",
+  "nome": "Lei 8.742/1993 (LOAS - Lei Organica da Assistencia Social)",
+  "uso": "BPC/LOAS (20, 20-B, 21): idoso 65+, pessoa com deficiencia, criterio de renda 1/4, revisao bienal",
+  "apelidos": [
+   "8742",
+   "LOAS"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/l8742.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "D3048",
+  "nome": "Decreto 3.048/1999 (Regulamento da Previdencia Social - RPS)",
+  "uso": "regulamento: periodo de graca (13), carencia, atividade especial (64-70), calculo, Anexos (agentes nocivos)",
+  "apelidos": [
+   "3048",
+   "RPS"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/decreto/d3048compilado.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "EC103",
+  "nome": "Emenda Constitucional 103/2019 (Reforma da Previdencia)",
+  "uso": "regras de transicao: pontos (15), idade minima (16), pedagio 50% (17), pedagio 100% (20), especial (21), calculo (26), pensao (23)",
+  "apelidos": [
+   "103",
+   "EC103/2019",
+   "REFORMA"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc103.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "EC113",
+  "nome": "Emenda Constitucional 113/2021 (precatorios; SELIC na atualizacao)",
+  "uso": "art. 3: SELIC para correcao e juros nas condenacoes da Fazenda Publica",
+  "apelidos": [
+   "113",
+   "EC113/2021"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc113.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "LC142",
+  "nome": "Lei Complementar 142/2013 (aposentadoria da pessoa com deficiencia no RGPS)",
+  "uso": "aposentadoria PcD por tempo (3, I-III) e por idade (3, IV), graus de deficiencia, conversao (7)",
+  "apelidos": [
+   "142"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp142.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "L10259",
+  "nome": "Lei 10.259/2001 (Juizados Especiais Federais)",
+  "uso": "competencia de 60 salarios minimos (3), tutela (4), recursos e uniformizacao (14), RPV (17)",
+  "apelidos": [
+   "10259",
+   "JEF"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "L9876",
+  "nome": "Lei 9.876/1999 (fator previdenciario; calculo do salario-de-beneficio)",
+  "uso": "fator previdenciario, regra de transicao do art. 3 (revisao da vida toda - ja julgada)",
+  "apelidos": [
+   "9876"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/l9876.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "L10741",
+  "nome": "Lei 10.741/2003 (Estatuto da Pessoa Idosa)",
+  "uso": "prioridade de tramitacao (71), BPC do idoso (34)",
+  "apelidos": [
+   "10741",
+   "ESTATUTOIDOSO"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/2003/l10.741.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "L13146",
+  "nome": "Lei 13.146/2015 (Estatuto da Pessoa com Deficiencia - LBI)",
+  "uso": "conceito de deficiencia (2), avaliacao biopsicossocial (2, par. 1), prioridade (9), auxilio-inclusao (94)",
+  "apelidos": [
+   "13146",
+   "LBI",
+   "ESTATUTOPCD"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "L14126",
+  "nome": "Lei 14.126/2021 (visao monocular = deficiencia sensorial)",
+  "uso": "visao monocular classificada como deficiencia sensorial (1)",
+  "apelidos": [
+   "14126"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14126.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "L7713",
+  "nome": "Lei 7.713/1988 (Imposto de Renda; isencao por molestia grave)",
+  "uso": "art. 6, XIV e XXI: isencao de IR sobre aposentadoria/pensao por molestia grave",
+  "apelidos": [
+   "7713"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/l7713.htm",
+  "baixado_em": "2026-11-18"
+ },
+ {
+  "sigla": "L1060",
+  "nome": "Lei 1.060/1950 (assistencia judiciaria)",
+  "uso": "gratuidade (o grosso foi revogado pelo CPC 98-102; restam dispositivos esparsos)",
+  "apelidos": [
+   "1060"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/l1060.htm",
+  "baixado_em": "2026-11-18",
+  "aviso": "Arts. 2, 3, 4, 6, 7, 11, 12 e 17 foram revogados pelo CPC/2015 (art. 1.072, III): gratuidade hoje e CPC 98-102."
+ },
+ {
+  "sigla": "CPC",
+  "nome": "Codigo de Processo Civil - Lei 13.105/2015",
+  "uso": "gratuidade (98-102), tutela de urgencia (300), prova pericial (464-480), cumprimento contra a Fazenda (534-535)",
+  "apelidos": [
+   "13105",
+   "CPC2015"
+  ],
+  "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm",
+  "baixado_em": "2026-11-06",
+  "fonte": "copiado da base tributaria",
+  "aviso": "Texto copiado da base tributaria (LAIS_TORRES_ADVOGADOS/tributario/leis/textos/CPC.txt); data do download e a da base de origem."
+ },
+ {
+  "sigla": "IN128",
+  "nome": "Instrucao Normativa PRES/INSS 128/2022 (REDACAO ORIGINAL do DOU)",
+  "uso": "regras e rotinas do INSS: filiacao, CNIS, comprovacao de atividade rural, beneficios, recursos administrativos",
+  "apelidos": [
+   "128",
+   "IN128/2022"
+  ],
+  "url": "https://www.in.gov.br/en/web/dou/-/instrucao-normativa-pres/inss-n-128-de-28-de-marco-de-2022-389275446",
+  "baixado_em": "2026-11-18",
+  "aviso": "Texto do DOU de 29/03/2022 em REDACAO ORIGINAL: nao traz as alteracoes posteriores das INs PRES/INSS que a modificaram. Antes de citar artigo da IN 128, conferir a redacao atual (consolidada no portal do INSS / Normas.gov.br)."
+ }
+]

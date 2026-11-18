@@ -1,0 +1,34 @@
+{
+  "_doc": "Copie para clientes.json (fora do Git: tem dado pessoal). Um registro por cliente e um por advogado PARCEIRO (demandas externas de calculo). Usado pela regua (contato e telefone), pela NF (antes/depois), pelo arquivamento de documentos (drive/arquivar_documento.py) e pela controladoria (processo -> pagina no Notion). Os valores abaixo sao EXEMPLO FICTICIO.",
+  "clientes": [
+    {
+      "id": "exemplo-maria",
+      "nome": "MARIA EXEMPLO DA SILVA",
+      "cpf_cnpj": "",
+      "area_padrao": "previdenciario",
+      "whatsapps": [""],
+      "email": "",
+      "contato_financeiro": {"nome": "", "whatsapp": "", "email": ""},
+      "asaas_customer_id": "",
+      "nf": {"quando": "depois", "dias_antes": 10},
+      "notion": {"cliente_page_id": ""},
+      "processos": [
+        {"numero": "", "parte_contraria": "INSS", "tipo_acao": "", "area": "previdenciario", "notion_page_id": ""}
+      ]
+    }
+  ],
+  "parceiros": [
+    {
+      "_doc": "Advogado parceiro que contrata calculo/servico avulso. Pasta: DEMANDAS_EXTERNAS_CALCULO/<NOME>/<AAAA-MM-DD - CASO>. prazo_entrega e OBRIGATORIO na pratica: sem ele a tarefa sai como 'definir prazo' para hoje.",
+      "id": "exemplo-parceiro",
+      "nome": "DR. FULANO EXEMPLO",
+      "oab": "",
+      "whatsapps": [""],
+      "email": "",
+      "asaas_customer_id": "",
+      "demandas": [
+        {"caso": "", "recebida_em": "", "prazo_entrega": "", "palavras_chave": [], "entregue_em": "", "valor": null}
+      ]
+    }
+  ]
+}

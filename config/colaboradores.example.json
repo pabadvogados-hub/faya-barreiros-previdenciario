@@ -1,0 +1,25 @@
+{
+  "_doc": "Copie para colaboradores.json (fora do Git: CPF e chave Pix). Equipe hoje: a Barbara (secretaria) e um estagiario. vinculo: estagiario | empregado | prestador. A chave Pix vem por escrito do PROPRIO colaborador, nunca de conversa antiga. pix_tipo: CPF | CNPJ | EMAIL | PHONE | EVP. pagamento.ativo=false ate a Dra. Faya conferir.",
+  "colaboradores": [
+    {
+      "id": "exemplo-estagiario",
+      "nome": "",
+      "cpf": "",
+      "vinculo": "estagiario",
+      "funcao": "",
+      "area": "",
+      "whatsapp": "",
+      "email": "",
+      "inicio": "",
+      "desligado_em": "",
+      "pagamento": {
+        "valor": null,
+        "dia": null,
+        "pix_chave": "",
+        "pix_tipo": "",
+        "ativo": false,
+        "descricao": ""
+      }
+    }
+  ]
+}

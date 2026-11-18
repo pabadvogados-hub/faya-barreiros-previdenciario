@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cálculos para parceiros</title>
+<style>
+  :root {
+    --bordo: #4E151C; --bordo-2: #6d2430; --dourado: #b8955a;
+    --fundo: #f6f3f1; --cartao: #ffffff; --texto: #20201f; --suave: #6b6461; --linha: #e6dfdb;
+    --ok: #2f7d4f; --atencao: #b7791f; --critica: #c0392b; --atrasada: #7b1e1e; --neutro: #8a8582;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --fundo: #171314; --cartao: #221c1d; --texto: #f1ece9; --suave: #b3aaa6; --linha: #3a3132;
+            --bordo: #c9848e; --bordo-2: #e0a3ab; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto);
+         font: 14px/1.45 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  header { background: #4E151C; color: #fff; padding: 18px 24px; display: flex; flex-wrap: wrap; gap: 12px;
+           align-items: center; justify-content: space-between; }
+  header h1 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: .2px; }
+  header small { display: block; opacity: .75; font-weight: 400; font-size: 12px; }
+  main { max-width: 1280px; margin: 0 auto; padding: 20px 16px 48px; }
+  .btn { border: 1px solid var(--linha); background: var(--cartao); color: var(--texto); padding: 7px 12px;
+         border-radius: 6px; cursor: pointer; font: inherit; }
+  .btn.primario { background: var(--bordo); border-color: var(--bordo); color: #fff; }
+  header .btn { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 18px; }
+  .kpi { background: var(--cartao); border: 1px solid var(--linha); border-radius: 8px; padding: 14px; }
+  .kpi b { display: block; font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .kpi span { color: var(--suave); font-size: 12px; }
+  .kpi.alerta b { color: var(--critica); } .kpi.aviso b { color: var(--atencao); }
+  .painel { background: var(--cartao); border: 1px solid var(--linha); border-radius: 8px; margin-bottom: 18px; }
+  .painel > h2 { margin: 0; padding: 12px 16px; font-size: 14px; border-bottom: 1px solid var(--linha);
+                 display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .filtros { display: flex; gap: 8px; flex-wrap: wrap; font-weight: 400; }
+  .filtros select, .filtros input { font: inherit; padding: 5px 8px; border: 1px solid var(--linha); border-radius: 6px;
+                                    background: var(--cartao); color: var(--texto); }
+  .tabela { width: 100%; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 860px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--linha); vertical-align: top; }
+  th { font-size: 12px; color: var(--suave); font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.clicavel { cursor: pointer; } tr.clicavel:hover { background: rgba(78,21,28,.05); }
+  .sit { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; white-space: nowrap; }
+  .sit i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .ok i { background: var(--ok); } .atencao i, .sem_prazo i { background: var(--atencao); }
+  .critica i { background: var(--critica); } .atrasada i { background: var(--atrasada); }
+  .entregue i, .cancelado i { background: var(--neutro); }
+  .tag { font-size: 11px; padding: 2px 7px; border-radius: 10px; border: 1px solid var(--linha); color: var(--suave); white-space: nowrap; }
+  .grade2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 860px) { .grade2 { grid-template-columns: 1fr; } }
+  .vazio { padding: 24px; color: var(--suave); text-align: center; }
+  dialog { border: 1px solid var(--linha); border-radius: 10px; padding: 0; width: min(640px, 94vw);
+           background: var(--cartao); color: var(--texto); }
+  dialog::backdrop { background: rgba(0,0,0,.35); }
+  dialog form { padding: 18px; display: grid; gap: 10px; }
+  dialog h3 { margin: 0 0 4px; font-size: 16px; }
+  label { display: grid; gap: 4px; font-size: 12px; color: var(--suave); }
+  label input, label select, label textarea { font: inherit; color: var(--texto); background: var(--fundo);
+         border: 1px solid var(--linha); border-radius: 6px; padding: 7px 9px; }
+  .linha2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .acoes { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin-top: 6px; }
+  .hist { font-size: 12px; color: var(--suave); max-height: 120px; overflow: auto; border-top: 1px solid var(--linha); padding-top: 8px; }
+  .msg { font-size: 12px; color: var(--suave); }
+  .link-parceiro { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 12px 16px; }
+  .link-parceiro code { background: var(--fundo); border: 1px solid var(--linha); padding: 5px 8px; border-radius: 6px;
+                        word-break: break-all; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Cálculos para advogados parceiros<small>Faya Barreiros Advocacia · prazo do parceiro é inegociável</small></h1>
+  <div>
+    <button class="btn" id="bt-atualizar">Atualizar</button>
+    <button class="btn primario" id="bt-nova" style="background:#fff;color:#4E151C;border-color:#fff">Nova demanda</button>
+  </div>
+</header>
+<main>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="painel">
+    <h2>Fila por prazo
+      <span class="filtros">
+        <select id="f-status"><option value="abertas">Em andamento</option><option value="todas">Todas</option>
+          <option value="ENTREGUE">Entregues</option><option value="nao_pagas">Entregues não pagas</option></select>
+        <select id="f-parceiro"><option value="">Todos os parceiros</option></select>
+        <input id="f-busca" placeholder="Buscar caso, processo, protocolo">
+      </span>
+    </h2>
+    <div class="tabela"><table>
+      <thead><tr><th>Situação</th><th>Protocolo</th><th>Parceiro</th><th>Caso</th><th>Tipo</th>
+        <th>Prazo interno</th><th>Prazo do parceiro</th><th>Status</th><th class="num">Valor</th></tr></thead>
+      <tbody id="fila"></tbody>
+    </table></div>
+  </section>
+
+  <div class="grade2">
+    <section class="painel"><h2>Parceiros</h2>
+      <div class="tabela"><table style="min-width:420px"><thead><tr><th>Parceiro</th><th class="num">Demandas</th>
+        <th class="num">Ativas</th><th class="num">Total</th><th class="num">A receber</th></tr></thead>
+        <tbody id="parceiros"></tbody></table></div>
+    </section>
+    <section class="painel"><h2>Por tipo de cálculo (entregues)</h2>
+      <div class="tabela"><table style="min-width:420px"><thead><tr><th>Tipo</th><th class="num">Qtd</th>
+        <th class="num">Ticket médio</th><th class="num">Dias até entregar</th></tr></thead>
+        <tbody id="tipos"></tbody></table></div>
+    </section>
+  </div>
+
+  <section class="painel"><h2>Link de pedido para os parceiros</h2>
+    <div class="link-parceiro"><code id="link">-</code><button class="btn" id="bt-copiar">Copiar</button>
+      <span class="msg">Envie a advogados parceiros. O pedido entra na fila com os arquivos na pasta do OneDrive.</span></div>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <form method="dialog" id="form">
+    <h3 id="dlg-titulo">Demanda</h3>
+    <div class="msg" id="dlg-sub"></div>
+    <div class="linha2">
+      <label>Parceiro<input name="parceiro_nome" required></label>
+      <label>CPF/CNPJ do parceiro (para cobrança)<input name="parceiro_doc"></label>
+    </div>
+    <div class="linha2">
+      <label>Caso (descrição curta, sem dado sensível)<input name="caso" required></label>
+      <label>Processo<input name="processo"></label>
+    </div>
+    <div class="linha2">
+      <label>Tipo<select name="tipo" id="sel-tipo"></select></label>
+      <label>Prazo do parceiro<input type="date" name="prazo_parceiro"></label>
+    </div>
+    <div class="linha2">
+      <label>Status<select name="status" id="sel-status"></select></label>
+      <label>Valor (R$)<input type="number" step="0.01" min="0" name="valor"></label>
+    </div>
+    <label style="display:flex;gap:8px;align-items:center;color:var(--texto)"><input type="checkbox" name="pago"> Pago</label>
+    <label>Observações<textarea name="observacoes" rows="2"></textarea></label>
+    <div class="hist" id="dlg-hist"></div>
+    <div class="acoes">
+      <button class="btn" value="cancelar" formnovalidate>Fechar</button>
+      <button class="btn" type="button" id="bt-cobrar">Cobrar no Asaas</button>
+      <button class="btn primario" value="salvar">Salvar</button>
+    </div>
+    <div class="msg" id="dlg-msg"></div>
+  </form>
+</dialog>
+
+<script>
+const brl = v => (v == null || v === '') ? '-' : Number(v).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+const dt = s => s ? s.slice(0, 10).split('-').reverse().join('/') : '-';
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ordemSit = {atrasada: 0, critica: 1, sem_prazo: 2, atencao: 3, ok: 4, entregue: 5, cancelado: 6};
+let DEM = [], TIPOS = [], STATUS = [], atual = null;
+
+async function api(caminho, opcoes = {}) {
+  const r = await fetch(caminho, Object.assign({headers: {'Content-Type': 'application/json'}}, opcoes));
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.erro || ('HTTP ' + r.status));
+  return j;
+}
+
+async function carregar() {
+  const [d, s, t, l] = await Promise.all([api('/api/demandas'), api('/api/resumo'), api('/api/tipos'), api('/api/link')]);
+  DEM = d.demandas; TIPOS = t.tipos; STATUS = t.status;
+  document.getElementById('link').textContent = l.link ? location.origin + l.link : 'defina PAINEL_TOKEN_PEDIDO';
+  kpis(s); parceiros(s); tipos(s); filtroParceiros(); fila();
+}
+
+function kpis(s) {
+  const k = [
+    ['Em andamento', s.em_andamento, ''], ['Atenção (até 2 dias úteis ou sem prazo)', s.atencao, s.atencao ? 'aviso' : ''],
+    ['Atrasadas', s.atrasadas, s.atrasadas ? 'alerta' : ''], ['Entregues no mês', s.entregues_mes, ''],
+    ['Faturado no mês', brl(s.faturado_mes), ''], ['Recebido no mês', brl(s.recebido_mes), ''],
+    ['A receber', brl(s.a_receber), s.a_receber ? 'aviso' : ''],
+    ['Entregues até o prazo do parceiro', s.pontualidade == null ? '-' : s.pontualidade + '%', ''],
+  ];
+  document.getElementById('kpis').innerHTML = k.map(([r, v, c]) => `<div class="kpi ${c}"><b>${esc(v)}</b><span>${esc(r)}</span></div>`).join('');
+}
+
+function parceiros(s) {
+  document.getElementById('parceiros').innerHTML = s.parceiros.length ? s.parceiros.map(p =>
+    `<tr><td>${esc(p.nome)}</td><td class="num">${p.qtd}</td><td class="num">${p.ativos}</td><td class="num">${brl(p.valor)}</td><td class="num">${brl(p.em_aberto)}</td></tr>`).join('')
+    : '<tr><td colspan="5" class="vazio">Nenhum parceiro ainda.</td></tr>';
+}
+
+function tipos(s) {
+  document.getElementById('tipos').innerHTML = s.por_tipo.length ? s.por_tipo.map(t =>
+    `<tr><td>${esc(t.tipo)}</td><td class="num">${t.qtd}</td><td class="num">${brl(t.ticket)}</td><td class="num">${t.dias_medios ?? '-'}</td></tr>`).join('')
+    : '<tr><td colspan="4" class="vazio">Nenhuma entrega ainda.</td></tr>';
+}
+
+function filtroParceiros() {
+  const sel = document.getElementById('f-parceiro'), v = sel.value;
+  const nomes = [...new Set(DEM.map(d => d.parceiro_nome))].sort();
+  sel.innerHTML = '<option value="">Todos os parceiros</option>' + nomes.map(n => `<option>${esc(n)}</option>`).join('');
+  sel.value = v;
+}
+
+function fila() {
+  const st = document.getElementById('f-status').value, pa = document.getElementById('f-parceiro').value;
+  const bu = document.getElementById('f-busca').value.toLowerCase();
+  const abertos = ['RECEBIDO', 'DOCUMENTOS PENDENTES', 'EM CÁLCULO', 'CONFERÊNCIA'];
+  let l = DEM.filter(d =>
+    (st === 'todas' || (st === 'abertas' && abertos.includes(d.status)) || d.status === st ||
+     (st === 'nao_pagas' && d.status === 'ENTREGUE' && !d.pago)) &&
+    (!pa || d.parceiro_nome === pa) &&
+    (!bu || [d.caso, d.processo, d.protocolo, d.parceiro_nome].join(' ').toLowerCase().includes(bu)));
+  l.sort((a, b) => (ordemSit[a._sit] - ordemSit[b._sit]) || String(a.prazo_interno || '9').localeCompare(String(b.prazo_interno || '9')));
+  document.getElementById('fila').innerHTML = l.length ? l.map(d => `<tr class="clicavel" data-id="${d.id}">
+    <td><span class="sit ${d._sit}"><i></i>${esc(d._sit_texto)}</span></td><td>${esc(d.protocolo)}</td>
+    <td>${esc(d.parceiro_nome)}</td><td>${esc(d.caso)}${d.arquivos.length ? ` <span class="tag">${d.arquivos.length} arq.</span>` : ''}</td>
+    <td>${esc(d.tipo)}</td><td>${dt(d.prazo_interno)}</td><td>${dt(d.prazo_parceiro)}</td>
+    <td><span class="tag">${esc(d.status)}</span>${d.status === 'ENTREGUE' ? (d.pago ? ' <span class="tag">pago</span>' : ' <span class="tag">a receber</span>') : ''}</td>
+    <td class="num">${brl(d.valor)}</td></tr>`).join('')
+    : '<tr><td colspan="9" class="vazio">Nada nesta visão.</td></tr>';
+}
+
+function abrir(d) {
+  atual = d || null;
+  const f = document.getElementById('form');
+  f.reset();
+  document.getElementById('sel-tipo').innerHTML = TIPOS.map(t => `<option>${esc(t)}</option>`).join('');
+  document.getElementById('sel-status').innerHTML = STATUS.map(t => `<option>${esc(t)}</option>`).join('');
+  document.getElementById('dlg-titulo').textContent = d ? d.protocolo : 'Nova demanda';
+  document.getElementById('dlg-sub').textContent = d ? `${d._sit_texto} · pasta: ${d.pasta || '-'}` : 'Demanda que chegou por e-mail ou WhatsApp.';
+  document.getElementById('dlg-msg').textContent = '';
+  document.getElementById('bt-cobrar').style.display = d ? '' : 'none';
+  for (const k of ['parceiro_nome', 'parceiro_doc', 'caso', 'processo', 'tipo', 'status', 'valor', 'observacoes'])
+    if (d && d[k] != null) f.elements[k].value = d[k];
+  f.elements.prazo_parceiro.value = d && d.prazo_parceiro ? d.prazo_parceiro : '';
+  f.elements.pago.checked = !!(d && d.pago);
+  f.elements.parceiro_nome.readOnly = !!d;
+  document.getElementById('dlg-hist').innerHTML = d ? d.historico.slice().reverse().map(h => `${dt(h.em)} ${esc(h.em.slice(11, 16))} — ${esc(h.o_que)}`).join('<br>') : '';
+  document.getElementById('dlg').showModal();
+}
+
+document.getElementById('form').addEventListener('submit', async ev => {
+  if (ev.submitter && ev.submitter.value !== 'salvar') return;
+  ev.preventDefault();
+  const f = ev.target, dados = Object.fromEntries(new FormData(f));
+  dados.pago = f.elements.pago.checked;
+  try {
+    if (atual) await api('/api/demandas/' + atual.id, {method: 'POST', body: JSON.stringify(dados)});
+    else await api('/api/demandas', {method: 'POST', body: JSON.stringify(dados)});
+    document.getElementById('dlg').close(); await carregar();
+  } catch (e) { document.getElementById('dlg-msg').textContent = 'Não salvou: ' + e.message; }
+});
+
+document.getElementById('bt-cobrar').addEventListener('click', async () => {
+  const m = document.getElementById('dlg-msg');
+  try {
+    const r = await api('/api/demandas/' + atual.id + '/cobrar', {method: 'POST', body: '{}'});
+    m.textContent = r.erro ? r.erro : r.executado ? 'Cobrança emitida no Asaas.' :
+      'Simulação: com PAINEL_PERMITE_COBRANCA=1 a cobrança seria emitida.';
+  } catch (e) { m.textContent = e.message; }
+});
+
+document.getElementById('fila').addEventListener('click', ev => {
+  const tr = ev.target.closest('tr[data-id]'); if (tr) abrir(DEM.find(d => d.id == tr.dataset.id));
+});
+document.getElementById('bt-nova').onclick = () => abrir(null);
+document.getElementById('bt-atualizar').onclick = carregar;
+document.getElementById('bt-copiar').onclick = () => navigator.clipboard.writeText(document.getElementById('link').textContent);
+for (const id of ['f-status', 'f-parceiro']) document.getElementById(id).onchange = fila;
+document.getElementById('f-busca').oninput = fila;
+carregar().catch(e => document.getElementById('kpis').innerHTML = `<div class="kpi alerta"><b>Erro</b><span>${esc(e.message)}</span></div>`);
+setInterval(() => carregar().catch(() => {}), 120000);
+</script>
+</body>
+</html>

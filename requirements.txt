@@ -1,0 +1,14 @@
+# Automacoes do escritorio (Python 3.10+)
+# Notion e Asaas: so requests (API REST). OneDrive: pasta local sincronizada (sem SDK da Microsoft).
+requests>=2.31
+python-dotenv>=1.0
+# contratos (.docx) e leitura de pecas
+python-docx>=1.1
+# planilha do relatorio financeiro (sem ela, o relatorio sai em .csv)
+openpyxl>=3.1
+# leitura de peca em PDF (revisor-pecas)
+pypdf>=4.0
+# Fora do pip (opcionais, na VPS):
+#   rclone                -> monta o OneDrive/SharePoint em ONEDRIVE_RAIZ (ver automacoes/README.md)
+#   libreoffice-writer    -> conversao docx -> pdf (comum/drive.py: docx_para_pdf)
+#   openssl               -> cifra do backup semanal

@@ -1,0 +1,27 @@
+{
+  "_doc": "Feriados estaduais e municipais que suspendem prazo. So entra em UF/COMARCA/DATAS o que for CERTO ou conferido no calendario oficial do tribunal (TJBA, TRT5, TRF1-SJBA; TJSP, TRT2/TRT15, TRF3). Feriado errado empurra o prazo para frente (perigoso); omitido puxa para tras (seguro). Formato: UF -> [\"MM-DD\"]; COMARCA -> \"UF:comarca sem acento minuscula\" -> [\"MM-DD\"]; DATAS -> UF ou UF:comarca -> {\"AAAA-MM-DD\": \"portaria que suspendeu\"} (vale so naquele ano). O bloco _CONFERIR NAO e lido pelo motor: conferido, mova a data para UF/COMARCA.",
+  "UF": {
+    "BA": ["07-02"]
+  },
+  "COMARCA": {},
+  "DATAS": {},
+  "_CONFERIR": {
+    "BA:salvador": {
+      "06-24": "Sao Joao - feriado municipal de Salvador [CONFERIR no calendario do TJBA]",
+      "12-08": "N. Sra. da Conceicao da Praia - feriado municipal de Salvador [CONFERIR no calendario do TJBA]"
+    },
+    "SP": {
+      "07-09": "Revolucao Constitucionalista - feriado estadual de SP (OAB/SP da Dra. Faya) [CONFERIR no calendario do TJSP]"
+    },
+    "SP:sao paulo": {
+      "01-25": "Aniversario da cidade de Sao Paulo [CONFERIR; so se houver processo na capital]",
+      "11-20": "ja e feriado nacional (Lei 14.759/2023) - nada a fazer"
+    },
+    "FEDERAL_LEI_5010": {
+      "_doc": "Justica Federal (Lei 5.010/1966, art. 62): quarta, quinta e sexta da Semana Santa, 11/08, 01/11, 08/12. Hoje so geram AVISO no motor.",
+      "08-11": "Dia do Advogado / fundacao dos cursos juridicos",
+      "11-01": "Todos os Santos",
+      "12-08": "Dia da Justica"
+    }
+  }
+}

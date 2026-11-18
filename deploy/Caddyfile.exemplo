@@ -1,0 +1,17 @@
+# HTTPS automático para o painel e o link dos parceiros.
+# 1) apontar o DNS do subdomínio (ex.: calculos.dominio-da-faya.com.br) para o IP da VPS  [A CONFIRMAR domínio]
+# 2) sudo cp deploy/Caddyfile.exemplo /etc/caddy/Caddyfile  (trocar o domínio)  &&  sudo systemctl reload caddy
+# O painel continua só em 127.0.0.1:8765; o Caddy é a única porta aberta (80/443).
+
+calculos.DOMINIO-A-CONFIRMAR.com.br {
+	encode gzip
+	request_body {
+		max_size 45MB
+	}
+	reverse_proxy 127.0.0.1:8765
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+	}
+}

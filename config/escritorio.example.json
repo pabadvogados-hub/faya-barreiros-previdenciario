@@ -1,0 +1,122 @@
+{
+  "_doc": "Copie para escritorio.json e preencha. Nada aqui e credencial (credencial vai em .env). Campo vazio = ainda nao informado pelo escritorio: o script avisa e nao age. Nao invente valor. Preenchido so o que e publico e certo (nome, CNPJ, OABs da titular, cidade).",
+
+  "escritorio": {
+    "nome_comercial": "Faya Barreiros Advocacia",
+    "razao_social": "FAYA BARREIROS SOCIEDADE INDIVIDUAL DE ADVOCACIA",
+    "cnpj": "67.928.823/0001-52",
+    "cidade": "Salvador",
+    "uf": "BA"
+  },
+
+  "aprovador": {
+    "_doc": "Quem recebe a lista de pagamentos do dia e o resumo financeiro (Dra. Faya). WhatsApp com DDD. As mensagens vao para a fila (mensageria) e a Barbara/ela mesma envia.",
+    "nome": "",
+    "whatsapp": ""
+  },
+
+  "mensageria": {
+    "_doc": "Unico modo: 'fila' (gera dados/fila_mensagens.jsonl + dados/saida/fila_mensagens_AAAA-MM-DD.csv para a Barbara enviar pelo WhatsApp do escritorio). Nao ha CRM de WhatsApp com API.",
+    "modo": "fila"
+  },
+
+  "notion": {
+    "_doc": "Ids das bases (o trecho de 32 caracteres da URL da base) e o NOME de cada coluna, como esta no Notion dela. Coluna vazia = campo ignorado. O tipo da coluna (texto, data, select, status, pessoa, relacao, checkbox) e lido da API, nao precisa informar. Conferir com: python automacoes/comum/notion.py --esquema",
+    "databases": {
+      "processos": "",
+      "prazos": "",
+      "clientes": "",
+      "andamentos": ""
+    },
+    "campos": {
+      "processos": {"numero": "", "cliente": "", "fase": "", "responsavel": "", "tipo": "", "valor_causa": ""},
+      "prazos": {"tipo": "", "responsavel": "", "processo": "", "inicio": "", "prazo": "", "prazo_fatal": "",
+                 "urgente": "", "observacao": "", "status": ""},
+      "clientes": {"cpf_cnpj": "", "telefone": "", "email": ""},
+      "andamentos": {"data": "", "descricao": "", "processo": "", "tipo": ""}
+    },
+    "_doc_status": "status_inicial: valor da coluna status ao criar a tarefa (ex.: 'A fazer'). status_concluido: valores que contam como feito (o primeiro e usado por concluir_tarefa).",
+    "status_inicial": "",
+    "status_concluido": [],
+    "_doc_tipos": "Valor da coluna 'tipo' (select) para cada tipo de tarefa. Vazio = sem tipo.",
+    "tipos_tarefa": {
+      "prazo": "",
+      "confirmar_classificacao": "",
+      "custas": "",
+      "audiencia": "",
+      "documento_recebido": "",
+      "calculo_externo": "",
+      "financeiro": ""
+    },
+    "_doc_resp": "Valor da coluna 'responsavel': id do usuario do Notion se a coluna for Pessoa; o nome se for select/texto.",
+    "responsaveis": {
+      "previdenciario": "",
+      "calculos": "",
+      "controladoria": "",
+      "atendimento": "",
+      "financeiro": ""
+    }
+  },
+
+  "controladoria": {
+    "_doc": "OABs monitoradas no DJEN (numero so com digitos). Dra. Faya: OAB/BA 64.723 e OAB/SP 308.385.",
+    "oabs": [
+      {"nome": "Dra. Faya Barreiros", "numero": "64723", "uf": "BA"},
+      {"nome": "Dra. Faya Barreiros", "numero": "308385", "uf": "SP"}
+    ],
+    "dias_retroativos": 3,
+    "prazo_interno_dias_uteis": 2
+  },
+
+  "regua": {
+    "_doc": "Marcos em dias antes do vencimento (MSG-07). atraso_ativo fica false ate a Dra. Faya confirmar dias e tom da cobranca em atraso.",
+    "marcos": [10, 5, 3, 0],
+    "tolerancia_dias": 1,
+    "aviso_pagamento": true,
+    "atraso_ativo": false,
+    "atraso_marcos": [1, 7]
+  },
+
+  "cobranca": {
+    "_doc": "Multa (%) e juros ao mes (%) das cobrancas do Asaas. Vazio = sem multa/juros. Definir com a Dra. Faya.",
+    "multa_percent": null,
+    "juros_mes": null
+  },
+
+  "fiscal": {
+    "_doc": "Dados da NFS-e de Salvador: vem do CONTADOR (codigo do servico no municipio, aliquotas, regime). emitir_desde = data de corte: nada anterior e emitido.",
+    "emitir_desde": "",
+    "max_por_rodada": 20,
+    "municipalServiceName": "",
+    "municipalServiceCode": "",
+    "municipalServiceId": "",
+    "serviceDescription_padrao": "",
+    "observations_padrao": "",
+    "deductions": 0,
+    "taxes": {
+      "retainIss": null,
+      "iss": null,
+      "pis": null,
+      "cofins": null,
+      "csll": null,
+      "inss": null,
+      "ir": null
+    }
+  },
+
+  "pagamentos": {
+    "antecipar_fim_de_semana": true
+  },
+
+  "modelos_comuns": {
+    "_doc": "Campos {{escritorio_*}} e {{titular_*}} usados pelos modelos de modelos/ (ver modelos/README.md). Endereco: a confirmar com a Dra. Faya.",
+    "escritorio_razao_social": "FAYA BARREIROS SOCIEDADE INDIVIDUAL DE ADVOCACIA",
+    "escritorio_cnpj": "67.928.823/0001-52",
+    "escritorio_endereco": "",
+    "escritorio_registro_oab": "",
+    "titular_nome": "",
+    "titular_oab": "OAB/BA 64.723 e OAB/SP 308.385",
+    "cidade_assinatura": "Salvador/BA",
+    "foro_comarca": ""
+  }
+}

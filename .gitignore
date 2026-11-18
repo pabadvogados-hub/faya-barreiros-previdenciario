@@ -1,0 +1,47 @@
+# Credenciais e tokens — nunca versionar
+config/.env
+.env
+*.env
+!config/.env.example
+config/token*.json
+config/credentials*.json
+config/rclone*.conf
+rclone.conf
+config/*secret*
+config/*.senha
+*.pem
+*.key
+
+# Cadastros com dado pessoal (CPF, chave Pix, telefone): ficam so na maquina/VPS e no backup cifrado
+config/*.json
+!config/*.example.json
+
+# Estado, filas, relatorios, backups
+dados/
+backups/
+*.db
+*.sqlite
+*.tar.gz
+*.tar.gz.enc
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Transcricoes de reuniao: conteudo pessoal do cliente, nunca em repo publico
+docs/KICKOFF_*
+docs/*transcricao*
+*.mp4
+
+
+# Documento de cliente nunca no repo: mora no OneDrive (pasta sincronizada fica FORA do projeto)
+onedrive/
+OneDrive*/
+
+# Kit previdenciario: o banco de leis VAI para o repo (texto oficial, sem dado pessoal)
+!previdenciario/leis/banco_leis.db
+# Minutas e casos gerados nunca no repo
+*_minuta.md
+previdenciario/calculos/casos/

@@ -1,0 +1,56 @@
+{
+  "_doc": "Fonte unica dos nomes de pasta do OneDrive (raiz = ONEDRIVE_RAIZ). Mudou aqui, muda em todos os scripts (comum/estrutura.py). Explicacao em ESTRUTURA_PASTAS.md.",
+  "raiz": {
+    "00_ESCRITORIO": {
+      "POPS": {},
+      "CHECKLISTS": {},
+      "MODELOS": {},
+      "MENSAGENS": {},
+      "CONTROLADORIA": {},
+      "ENTRADA_DOCUMENTOS": {},
+      "BACKUPS": {}
+    },
+    "FINANCEIRO": {},
+    "CLIENTES": {},
+    "DEMANDAS_EXTERNAS_CALCULO": {}
+  },
+  "financeiro_mes": ["RELATORIOS", "COMPROVANTES", "NOTAS_FISCAIS"],
+  "cliente": [
+    "00_CONTRATACAO",
+    "01_DOCUMENTOS_PESSOAIS",
+    "02_CNIS_E_VINCULOS",
+    "03_PROVAS_ESPECIAIS",
+    "04_SAUDE",
+    "05_INSS_ADMINISTRATIVO",
+    "06_CALCULOS",
+    "07_PECAS",
+    "08_PROCESSO_JUDICIAL",
+    "09_FINANCEIRO",
+    "99_A_CLASSIFICAR"
+  ],
+  "pasta_processos": "08_PROCESSO_JUDICIAL",
+  "a_classificar": "99_A_CLASSIFICAR",
+  "demanda_externa": ["01_RECEBIDO_DO_PARCEIRO", "02_CALCULO_EM_ELABORACAO", "03_ENTREGUE", "04_FINANCEIRO"],
+  "palavras_chave": {
+    "_doc": "Roteamento do documento recebido (drive/arquivar_documento.py). A ORDEM importa: a 1a subpasta com palavra encontrada no nome do arquivo ou na legenda ganha. Palavras sem acento e minusculas.",
+    "ordem": [
+      ["03_PROVAS_ESPECIAIS", ["ppp", "perfil profissiografico", "ltcat", "laudo tecnico", "laudo de insalubridade",
+                               "laudo de periculosidade", "pcmso", "ppra", "pgr"]],
+      ["02_CNIS_E_VINCULOS", ["cnis", "ctps", "carteira de trabalho", "contrato de trabalho", "carne", "carnes", "gps",
+                              "guia da previdencia", "extrato previdenciario", "contracheque", "holerite", "rais",
+                              "ficha de registro"]],
+      ["00_CONTRATACAO", ["contrato de honorarios", "contrato", "procuracao", "declaracao de hipossuficiencia",
+                          "hipossuficiencia", "termo de renuncia", "renuncia", "declaracao"]],
+      ["04_SAUDE", ["laudo", "exame", "atestado", "receita", "relatorio medico", "prontuario", "ressonancia",
+                    "tomografia", "raio x", "raio-x", "ultrassom", "cid"]],
+      ["05_INSS_ADMINISTRATIVO", ["requerimento", "indeferimento", "carta de concessao", "concessao",
+                                  "comunicado de decisao", "processo administrativo", "exigencia", "meu inss",
+                                  "pericia do inss", "crps", "recurso administrativo", "protocolo inss"]],
+      ["06_CALCULOS", ["calculo", "rmi", "planilha", "simulacao", "contagem de tempo"]],
+      ["09_FINANCEIRO", ["comprovante de pagamento", "comprovante pix", "pix", "boleto", "recibo"]],
+      ["01_DOCUMENTOS_PESSOAIS", ["rg", "cpf", "cnh", "identidade", "certidao de nascimento", "certidao de casamento",
+                                  "comprovante de residencia", "comprovante de endereco", "titulo de eleitor",
+                                  "documentos pessoais", "certidao de obito"]]
+    ]
+  }
+}
